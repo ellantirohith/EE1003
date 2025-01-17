@@ -29,6 +29,7 @@ def f(x):
 x_vals = np.linspace(-2, 4.5, 500)
 y_vals = 4 * (x_vals) - (x_vals**2) / 2
 
+
 # Plot the function
 plt.figure(figsize=(10, 6))
 plt.plot(x_vals, y_vals, label="f(x) = 4x - x^2 / 2", color="blue")

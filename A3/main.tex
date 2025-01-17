@@ -133,7 +133,20 @@ x_{max} = 4, \quad f(x_{\text{max}}) = 8
 \end{align}
 
 
-The absolute maximum value of the function is $ 8 $ at $ x = 4 $, and the absolute minimum value is $ -10 $ at $ x = -2 $.
+The absolute maximum value of the function is $ 8 $ at $ x = 4 $, and the absolute minimum value is $ -10 $ at $ x = -2 $.\\
+\textbf{Computational Solution using cvxpy:}
+We can find absolute maximum and minimum using $cvxpy$ module in python. Gives $x_{max} = 4, \quad f(x_{\text{max}}) = 8$. However, Python throws an error because the function being minimized is concave. The objective function must be convex for minimization. As a result, we can instead check the endpoints of the boundary within the given interval. At  $ x = -2 $:
+\begin{align}
+f(-2) = 4(-2) - \dfrac{(-2)^2}{2} = -8 - 2 = -10
+\end{align}
+
+At $ x = \dfrac{9}{2} $:
+\begin{align}
+f\left(\dfrac{9}{2}\right) = 4\left(\dfrac{9}{2}\right) - \dfrac{\left(\dfrac{9}{2}\right)^2}{2} = 18 - \dfrac{81}{8} = \dfrac{144 - 81}{8} = \dfrac{63}{8}\\
+f\brak{-2} < f\brak{\frac{9}{2}}
+\end{align}
+
+Thus, Minimum occurs at $x=-2$.
 \begin{figure}[h]
 \centering
 \includegraphics[width=\columnwidth]{Figs/Figure_1.png}
