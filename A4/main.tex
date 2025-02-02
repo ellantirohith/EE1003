@@ -1,0 +1,135 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Ensure lmodern is loaded for pdflatex
+\usepackage{tfrupee} % Include tfrupee package
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+% \usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{10.4.ex.6}
+\author{EE24BTECH11020 - Ellanti Rohith}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{QUESTION} : \\
+Find the roots of the quadratic equation, $2x^{2} + x - 300 = 0$. \\
+\textbf{SOLUTION} : \\
+\begin{enumerate}
+	\item \textbf{QUADRATIC FORMULA} : \\
+	Consider an equation, 
+	\begin{align}
+		ax^2 + bx + c &= 0 \\
+	        x^2 + \frac{b}{a} x + \frac{c}{a} &= 0 \label{eq:qe} \\
+		x^2 + 2 \frac{b}{2a} x + \frac{b^2}{4a^2} - \frac{b^2}{4a^2} + \frac{c}{a} &= 0 \\
+		\brak{x + \frac{b}{2a}}^2 + \brak{\frac{4ac - b^2}{4a^2}} &= 0 \\
+		\brak{x + \frac{b}{2a}} &= \frac{\sqrt{b^2 - 4ac}}{2a} \\
+		x &= \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+	\end{align}
+	which is the quadratic formula. \\
+Given equation, 
+\begin{align}
+ 2x^2 + x - 300 &= 0 \\
+	\implies x &= 12 \\
+	x &= -12.5
+\end{align}
+	\item \textbf{EIGENVALUE APPROACH} : \\
+	Consider the equation, \eqref{eq:qe}. It can be rearranged as
+	\begin{align}
+		\lambda ^2 + \frac{b}{a} \lambda + \frac{c}{a} &= 0 \\
+		\lambda \brak{\lambda + \frac{b}{a}} + \frac{c}{a} &= 0 \\
+		-\lambda \brak{-\lambda - \frac{b}{a}} - (-1) \frac{c}{a} &= 0
+	\end{align}
+	This can be considered equivalent to the determinant of the matrix, 
+	\begin{align}
+		\myvec{-\lambda & 1 \\ -\frac{c}{a} & \frac{-b}{a} - \lambda} \label{eq:matrix}
+	\end{align}
+	Clearly, it can be seen that the eigenvalues of the matrix 
+	\begin{align}
+		\myvec{0 & 1 \\ \frac{-c}{a} & \frac{-b}{a}} \label{eq:cmat}
+	\end{align}
+	are the roots of the required quadratic equation. This matrix, \eqref{eq:cmat} is called the \textbf{Companion matrix} \brak{\vec{C}}. \\
+	For the given question, 
+	\begin{align}
+		\vec{C} &= \myvec{0 & 1 \\ 150 & -\frac{1}{2}}
+	\end{align}
+	\textbf{QR ALGORITHM} :
+	Eigenvalues of the companion matrix can be found using QR algorithm. Using Householder Reflections for QR Decomposition, the matrix $\vec{C}$ can be factorized into
+	\begin{align}
+		\vec{C} &= \vec{Q} \vec{R}
+	\end{align}
+	where, 
+	\begin{align}
+		\vec{Q} &= Orthonormal \text{ }matrix \\
+		\vec{R} &= Upper\text{ } triangular \text{ }matrix
+	\end{align}
+	This process can be continues as
+	\begin{align}
+		\vec{C_{k}} &= \vec{Q_{k}} \vec{R_{k}} \\
+		\vec{C_{k+1}} &= \vec{R_{k}} \vec{Q_{k}}
+	\end{align}
+	As $k \to \infty$, the diagonal elements of $\vec{Q_{k}}$ converge to the eigenvalues of the matrix.
+	It can be seen that eigenvalues are -12.499994 and  11.999994.
+	\item \textbf{Newton-Raphson method} : \\
+		We have, 
+		\begin{align}
+			x_{n+1} &= x_{n} - \frac{f(x_{n})}{f^{\prime}(x_{n})}	\\
+			x_{n+1} &= x_{n} - \frac{2x_{n}^2 +x_{n} - 300}{4x_{n} + 1}
+		\end{align}
+		Iterating and updating the value of $x_{n}$, we can obtain the roots of the quadratic equation. \\
+		The roots found using this method taking the initial guesses as 2 and -1 are 12.000000000032733 and -12.500000000026837
+ respectively.
+ 
+\end{enumerate}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{figs/fig.png}
+\caption{Plot of the given question.}
+\label{fig:Plot1} 
+\end{figure}
+\end{document}
